@@ -15,12 +15,34 @@ public class Car {
     private final String bodyType;
     private String number;
     private final int numberOfSeats;
-    private boolean tires;
+    private boolean summerTires;
 
-    public Car(String brand, String model, double engineVolume, String color, int year, String country, String transmission, String bodyType, String number, int numberOfSeats, boolean tires) {
+    private Key key;
+
+    public boolean isSummerTires() {
+        return summerTires;
+    }
+
+    public void setSummerTires(boolean summerTires) {
+        this.summerTires = summerTires;
+    }
+
+    public Key getKey() {
+        return key;
+    }
+
+    public void setKey(Key key) {
+        if (key == null) {
+            key = new Key (false, false);
+        }
+        this.key = key;
+    }
+
+    public Car(String brand, String model, double engineVolume, String color, int year, String country, String transmission, String bodyType, String number, int numberOfSeats, boolean summerTires, Key key) {
         this.brand = (brand == null || brand.length() == 0 ? "Default" : brand);
         this.model = (model == null || brand.length() == 0 ? "Default" : model);
         this.engineVolume = (engineVolume == 0 ? 1.7 : engineVolume);
+        setEngineVolume(engineVolume);
         this.color = (color == null || brand.length() == 0 ? "Default" : color);
         this.year = (year == 0 ? 2000 : year);
         this.country = (country == null || brand.length() == 0 ? "Default" : country);
@@ -28,7 +50,8 @@ public class Car {
         this.bodyType = (bodyType == null || brand.length() == 0 ? "Default" : bodyType);
         this.number = (number == null || brand.length() == 0 ? "Default" : number);
         this.numberOfSeats = (numberOfSeats < 4 ? 4 : numberOfSeats);
-        this.tires = tires;
+        this.summerTires = summerTires;
+        setKey(key);
     }
 
     Calendar calendar = Calendar.getInstance();
@@ -96,11 +119,11 @@ public class Car {
     }
 
     public boolean isTires() {
-        return tires;
+        return summerTires;
     }
 
     public void setTires(boolean tires) {
-        this.tires = tires;
+        this.summerTires = summerTires;
     }
     @Override
     public String toString() {
@@ -114,14 +137,22 @@ public class Car {
                 ", transmission='" + transmission + '\'' +
                 ", bodyType='" + bodyType + '\'' +
                 ", number='" + number + '\'' +
-                ", numberOfSeats=" + numberOfSeats +
-                ", tires=" + tires +
+                ", numberOfSeats=" + numberOfSeats + '\'' +
+                ", " + (summerTires ? "Летняя резина" : "Зимняя резина") + '\'' +
                 '}';
     }
 
     public static class Key {
         private final boolean remoteLaunch;
         private final boolean keylessEntry;
+
+        public boolean isRemoteLaunch() {
+            return remoteLaunch;
+        }
+
+        public boolean isKeylessEntry() {
+            return keylessEntry;
+        }
 
         @Override
         public String toString() {
