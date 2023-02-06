@@ -1,16 +1,11 @@
 package transport;
 
-import java.io.Serializable;
 import java.util.Calendar;
 
-public class Car {
-    private final String brand;
-    private final String model;
+public class Car extends Transport{
+
     private double engineVolume;
 
-    private String color;
-    private final int year;
-    private final String country;
     private String transmission;
     private final String bodyType;
     private String number;
@@ -38,14 +33,9 @@ public class Car {
         this.key = key;
     }
 
-    public Car(String brand, String model, double engineVolume, String color, int year, String country, String transmission, String bodyType, String number, int numberOfSeats, boolean summerTires, Key key) {
-        this.brand = (brand == null || brand.length() == 0 ? "Default" : brand);
-        this.model = (model == null || brand.length() == 0 ? "Default" : model);
-        this.engineVolume = (engineVolume == 0 ? 1.7 : engineVolume);
-        setEngineVolume(engineVolume);
-        this.color = (color == null || brand.length() == 0 ? "Default" : color);
-        this.year = (year == 0 ? 2000 : year);
-        this.country = (country == null || brand.length() == 0 ? "Default" : country);
+    public Car(String brand, String model, double engineVolume, double maxSpeed, String color, int year, String country, String transmission, String bodyType, int numberOfSeats, boolean summerTires, Key key) {
+        super(brand, model, maxSpeed, color);
+        this.engineVolume = (engineVolume <= 0 ? 1.7 : engineVolume);
         this.transmission = (transmission == null || brand.length() == 0 ? "Default" : transmission);
         this.bodyType = (bodyType == null || brand.length() == 0 ? "Default" : bodyType);
         this.number = (number == null || brand.length() == 0 ? "Default" : number);
@@ -62,13 +52,6 @@ public class Car {
         }
     }
 
-    public String getBrand() {
-        return brand;
-    }
-
-    public String getModel() {
-        return model;
-    }
 
     public double getEngineVolume() {
         return engineVolume;
@@ -78,21 +61,6 @@ public class Car {
         this.engineVolume = engineVolume;
     }
 
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public String getCountry() {
-        return country;
-    }
 
     public String getTransmission() {
         return transmission;
@@ -128,17 +96,19 @@ public class Car {
     @Override
     public String toString() {
         return "\nCar{" +
-                "brand='" + brand + '\'' +
-                ", model='" + model + '\'' +
+                "brand='" + getBrand() + '\'' +
+                ", model='" + getModel() + '\'' +
                 ", engineVolume=" + engineVolume +
-                ", color='" + color + '\'' +
-                ", year=" + year +
-                ", country='" + country + '\'' +
+                ", maxSpeed=" + getMaxSpeed() +
+                ", color='" + getColor() + '\'' +
+                ", year=" + getYear() +
+                ", country='" + getCountry() + '\'' +
                 ", transmission='" + transmission + '\'' +
                 ", bodyType='" + bodyType + '\'' +
                 ", number='" + number + '\'' +
                 ", numberOfSeats=" + numberOfSeats + '\'' +
                 ", " + (summerTires ? "Летняя резина" : "Зимняя резина") + '\'' +
+                ", " + key + '\'' +
                 '}';
     }
 
